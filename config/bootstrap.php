@@ -4,7 +4,7 @@ Yii::setAlias('@passport', dirname(__DIR__));
 Yii::setAlias('@rsa', dirname(__DIR__) . '/mixed/rsa');
 Yii::setAlias('@thrift', dirname(__DIR__) . '/mixed/thrift');
 
-define('VERSION', '0.0.1');
+define('VERSION', '0.0.2');
 
 define('TIME', $_SERVER['REQUEST_TIME']);
 define('DS', DIRECTORY_SEPARATOR);
