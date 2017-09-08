@@ -26,6 +26,7 @@ class UserController extends MainController
                 'id',
                 'username',
                 'phone',
+                'role',
                 'sex',
                 'country',
                 'province',
