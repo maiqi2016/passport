@@ -64,6 +64,7 @@ $description = empty($params['description']) ? $params['app_description'] : $par
 $minDirectory = (YII_ENV == 'dev' ? null : '_min');
 $suffix = (YII_ENV == 'dev' ? time() : VERSION);
 
+$sourceUrl = $params['passport_source'];
 $items = [
     'css',
     'js'
@@ -74,15 +75,19 @@ foreach ($items as $item) {
 
     if (is_null($this->context->{$variable}) || 'auto' == $this->context->{$variable}) {
         $source = "/{$item}{$minDirectory}/{$controller}/{$action}.{$item}";
-        $this->{$register}($params['passport_source'] . $source . "?version=" . $suffix);
+        $this->{$register}($sourceUrl . $source . "?version=" . $suffix);
     } elseif (is_array($this->context->{$variable})) {
         foreach ($this->context->{$variable} as $value) {
             if (strpos($value, '/') === 0) {
-                $source = "{$value}.{$item}";
+                $source = "${sourceUrl}{$value}.{$item}";
+            } else if (strpos($value, 'http:') === 0 || strpos($value, 'https:') === 0) {
+                $source = $value;
             } else {
-                $source = "/{$item}{$minDirectory}/{$value}.{$item}";
+                $source = "${sourceUrl}/{$item}{$minDirectory}/{$value}.{$item}";
             }
-            $this->{$register}($params['passport_source'] . $source . "?version=" . $suffix);
+
+            $char = strpos($source, '?') !== false ? '&' : '?';
+            $this->{$register}($source . $char . "version=" . $suffix);
         }
     }
 }

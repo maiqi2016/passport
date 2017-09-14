@@ -114,17 +114,15 @@ class AuthController extends MainController
      * 用户登出
      *
      * @access public
-     * @return void
+     * @return string
      */
     public function actionLogout()
     {
         Yii::$app->session->removeAll();
+        $this->sourceJs = array_merge(self::$logout, [
+            'auth/login'
+        ]);
 
-        $script = null;
-        foreach (self::$logout as $url) {
-            $script .= "<script type='text/javascript' src='{$url}'></script>" . PHP_EOL;
-        }
-
-        echo $script;
+        return $this->render('logout');
     }
 }
