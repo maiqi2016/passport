@@ -5,4 +5,14 @@ $params = \Yii::$app->params;
 \Yii::$app->params['ng_ctrl'] = 'auth';
 ?>
 
-<h4 style="margin: 100px auto; text-align: center;" ng-init="goBack()">Logout ...</h4>
+<style>
+    h2, h4 {
+        text-align: center;
+    }
+    h2 {
+        margin: 100px auto 15px;
+    }
+</style>
+
+<h2>{{second}}<small>s</small></h2>
+<h4 ng-init="goBack()">Platform Logout ...</h4>
