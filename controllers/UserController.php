@@ -18,22 +18,12 @@ class UserController extends MainController
         $userId = $this->validate();
 
         $record = $this->service('user.detail', [
-            'where' => [
-                ['id' => $userId],
-                ['state' => 1]
-            ],
-            'select' => [
-                'id',
-                'username',
-                'phone',
-                'role',
-                'sex',
-                'country',
-                'province',
-                'city',
-                'head_img_url'
-            ]
+            'where' => [['id' => $userId]]
         ]);
+
+        if (!empty($record) && !$record['state']) {
+            exit(json_encode('the account has been frozen'));
+        }
 
         exit(json_encode($record, JSON_UNESCAPED_UNICODE));
     }
