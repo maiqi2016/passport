@@ -114,9 +114,12 @@ class AuthController extends MainController
      * 用户登出
      *
      * @access public
+     *
+     * @param string $callback
+     *
      * @return string
      */
-    public function actionLogout()
+    public function actionLogout($callback)
     {
         Yii::$app->session->removeAll();
 
@@ -125,6 +128,10 @@ class AuthController extends MainController
             'auth/login'
         ]);
 
-        return $this->render('logout');
+        if (empty($callback)) {
+            $this->error('callback url is required');
+        }
+
+        return $this->render('logout', compact('callback'));
     }
 }
