@@ -15,4 +15,4 @@ $params = \Yii::$app->params;
 </style>
 
 <h2>{{second}}<small>s</small></h2>
-<h4 ng-init="goBack()">Platform Logout ...</h4>
+<h4 ng-init="goBack('<?= $callback ?>')">Platform Logout ...</h4>
