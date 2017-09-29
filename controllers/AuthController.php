@@ -119,6 +119,8 @@ class AuthController extends MainController
     public function actionLogout()
     {
         Yii::$app->session->removeAll();
+
+        $this->sourceCss = ['main'];
         $this->sourceJs = array_merge(self::$logout, [
             'auth/login'
         ]);
