@@ -14,6 +14,8 @@ return [
     ),
     'components' => [
         'session' => [
+            // 'class'=>'yii\redis\Session',
+            // 'keyPrefix' => 'sess_passport_',
             'name' => 'SSO_SESS',
             'cookieParams' => [
                 'domain' => DOMAIN,
@@ -21,6 +23,13 @@ return [
                 'httpOnly' => true,
                 'path' => '/',
             ],
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => '[SECRET:redis_host]',
+            'password' => '[SECRET:redis_pwd]',
+            'port' => [SECRET:redis_port],
+            'database' => 0,
         ],
         'i18n' => [
             'translations' => [
