@@ -191,7 +191,7 @@ class MainController extends Controller
     {
         $phone = Yii::$app->request->post('phone');
         if (!preg_match('/^[\d]([\d\-\ ]+)?[\d]$/', $phone)) {
-            $this->fail('Phone number illegal');
+            $this->fail('phone number illegal');
         }
 
         $result = $this->service('phone-captcha.send', [
@@ -201,10 +201,10 @@ class MainController extends Controller
 
         if (is_string($result)) {
             Yii::error('Sms error: ' . $result);
-            $this->fail('Phone captcha send fail');
+            $this->fail('phone captcha send fail');
         }
 
-        $this->success(null, 'Phone captcha send success');
+        $this->success(null, 'phone captcha send success');
     }
 
     /**
@@ -618,7 +618,7 @@ class MainController extends Controller
 
         if (is_string($result)) {
             $this->fail([
-                'Token validate failed {reason}',
+                'token validate failed {reason}',
                 'reason' => $result
             ]);
         }
