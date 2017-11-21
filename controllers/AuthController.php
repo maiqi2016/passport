@@ -66,7 +66,7 @@ class AuthController extends MainController
         $record = $this->validateCode($post['code'], $post['client_id'], $post['redirect_uri']);
         if (is_string($record)) {
             $this->fail([
-                'Code validate failed {reason}',
+                'code validate failed {reason}',
                 'reason' => $record
             ]);
         }
@@ -87,9 +87,10 @@ class AuthController extends MainController
     public function actionAjaxLogin()
     {
         $params = Yii::$app->request->post();
-        $params['ip'] = Yii::$app->request->userIP;
-        $params['type'] = 3;
-
+        $params = array_merge($params, [
+            'ip' => Yii::$app->request->userIP,
+            'type' => 3
+        ]);
         $user = $this->service('user.login-check', $params);
 
         if (is_string($user)) {
