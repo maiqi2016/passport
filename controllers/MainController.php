@@ -62,44 +62,33 @@ class MainController extends Controller
     }
 
     /**
-     * Parse error message
+     * 公共错误控制器
      *
-     * @access private
-     * @return array
+     * @access public
+     * @auth-pass-all
+     *
+     * @param string  $message
+     * @param integer $code
+     * @param string  $title
+     *
+     * @return void
      */
-    protected function parseError()
+    public function actionError($message = null, $code = 400, $title = 'Error')
     {
-        if (null === ($exception = Yii::$app->getErrorHandler()->exception)) {
-            $exception = new yii\web\HttpException(400, Yii::t('yii', 'An internal server error occurred.'));
-        }
+        $trace = null;
+        $message = $message ? urldecode($message) : 'Unknown error.';
 
-        if ($exception instanceof yii\web\HttpException) {
-            $code = $exception->statusCode;
-        } else {
-            $code = $exception->getCode();
-        }
-
-        if ($exception instanceof yii\base\Exception) {
-            $name = $exception->getName();
-        } else {
-            $name = Yii::t('yii', 'Error');
-        }
-        if ($code) {
-            $name .= " (#$code)";
-        }
-
-        if ($exception instanceof yii\base\UserException) {
+        if (null !== ($exception = Yii::$app->errorHandler->exception)) {
+            $code = $exception->getCode() ?: $exception->statusCode;
             $message = $exception->getMessage();
-        } else {
-            $message = Yii::t('yii', 'An internal server error occurred.');
+            $trace = YII_DEBUG ? strval($exception->getPrevious()) : null;
         }
 
-        return [
-            'code' => $code,
-            'title' => $name,
-            'message' => $message,
-            'exception' => $exception
-        ];
+        if (Yii::$app->request->isAjax) {
+            $this->fail($title . ':' . $message);
+        }
+
+        $this->error($message, $code, $trace);
     }
 
     /**
@@ -119,12 +108,21 @@ class MainController extends Controller
             'message/index'
         ];
 
-        switch ($code) {
-            case '404' :
+        switch (intval($code)) {
+
+            case 403 :
                 $params = [
-                    'type' => '404',
-                    'message' => Yii::t('common', 'page not found'),
-                    'title' => '404'
+                    'type' => $code,
+                    'message' => $message,
+                    'title' => '403 Forbidden'
+                ];
+                break;
+
+            case 404 :
+                $params = [
+                    'type' => $code,
+                    'message' => $message,
+                    'title' => '404 Not Found'
                 ];
                 break;
 
@@ -132,7 +130,7 @@ class MainController extends Controller
                 $params = [
                     'type' => 'error',
                     'message' => $message,
-                    'title' => 'Oops!'
+                    'title' => 'Internal Error'
                 ];
                 break;
         }
@@ -143,42 +141,6 @@ class MainController extends Controller
         $content = $this->renderContent($content);
 
         exit($content);
-    }
-
-    /**
-     * 公共错误控制器
-     *
-     * @access public
-     * @auth-pass-all
-     *
-     * @param string  $message
-     * @param integer $code
-     * @param string  $title
-     *
-     * @return void
-     */
-    public function actionError($message = null, $code = 400, $title = 'Error')
-    {
-        if (!$message) {
-            /**
-             * @var $code      integer
-             * @var $title     string
-             * @var $message   string
-             * @var $exception object
-             */
-            $error = $this->parseError();
-
-            extract($error);
-            $trace = YII_DEBUG ? strval($exception->getPrevious()) : null;
-        } else {
-            $trace = null;
-        }
-
-        if (Yii::$app->request->isAjax) {
-            $this->fail($title . ':' . $message);
-        }
-
-        $this->error($message, $code, $trace);
     }
 
     /**
