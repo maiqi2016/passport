@@ -68,17 +68,15 @@ return [
         'user' => [
             'identityClass' => [],
         ],
-        // Custom components
-        'reflection' => [
-            'class' => 'passport\components\Reflection'
-        ],
-        'rsa' => [
-            'class' => 'passport\components\Rsa',
-            'publicKey' => '@rsa/rsa_public.pem',
-            'privateKey' => '@rsa/rsa_private.pem',
-        ],
-        'api' => [
-            'class' => 'passport\components\Service'
+        'oil' => [
+            'class' => 'passport\components\Oil',
+            'rsa' => [
+                'class' => 'Oil\src\Rsa',
+                'config' => [
+                    'public_key' => Yii::getAlias('@rsa/rsa_public.pem'),
+                    'private_key' => Yii::getAlias('@rsa/rsa_private.pem'),
+                ]
+            ],
         ],
     ],
 ];
