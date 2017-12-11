@@ -2,7 +2,7 @@
 
 namespace passport\controllers;
 
-use passport\components\Helper;
+use Oil\src\Helper;
 use Yii;
 
 /**

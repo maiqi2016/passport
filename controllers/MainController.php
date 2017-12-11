@@ -2,7 +2,7 @@
 
 namespace passport\controllers;
 
-use passport\components\Helper;
+use Oil\src\Helper;
 use yii;
 use yii\web\Controller;
 use yii\helpers\Html;
@@ -481,7 +481,7 @@ class MainController extends Controller
      */
     protected function generateToken($clientId, $code, $ssoCodeId, $userId)
     {
-        $token = Yii::$app->rsa->encryptByPublicKey($userId . '-' . $code);
+        $token = Yii::$app->oil->rsa->encryptByPublicKey($userId . '-' . $code);
 
         $result = $this->service('general.newly-sso-token', [
             'sso_code_id' => $ssoCodeId,
@@ -518,7 +518,7 @@ class MainController extends Controller
 
         $token = str_replace(' ', '+', $token);
 
-        $tokenStr = Yii::$app->rsa->decryptByPrivateKey($token);
+        $tokenStr = Yii::$app->oil->rsa->decryptByPrivateKey($token);
         if (empty($tokenStr)) {
             return 'illegal token string';
         }
