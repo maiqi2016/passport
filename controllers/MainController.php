@@ -217,10 +217,10 @@ class MainController extends Controller
 
         // call client
         $client = realpath(Yii::getAlias('@thrift/client.php'));
-        Yii::trace('服务请求开始: ' . $api . ' with ' . json_encode($params));
+        Yii::info('服务请求开始: ' . $api . ' with ' . json_encode($params));
         $cmd = Helper::joinString(' ', 'php', $client, $params, $conf['thrift_ip'], $conf['thrift_port']);
         exec($cmd, $result);
-        Yii::trace('服务请求结束');
+        Yii::info('服务请求结束');
 
         $result = Helper::handleCliResult($result);
 
@@ -305,7 +305,7 @@ class MainController extends Controller
     public function success($data = [], $lang = null, $package = 'common')
     {
         $info = $this->lang($lang, $package);
-        $info && Yii::trace($info);
+        $info && Yii::info($info);
 
         exit(json_encode([
             'state' => 1,
