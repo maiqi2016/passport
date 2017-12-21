@@ -10,8 +10,8 @@ return [
     'app_description' => '喀客通行',
     'app_keywords' => '喀客通行',
 
-    'passport_url' => "http://{$secondPassport}.{$domain}",
-    'passport_source' => "http://{$secondSource}.{$domain}/kake/passport",
+    'passport_url' => "//{$secondPassport}.{$domain}",
+    'passport_source' => "//{$secondSource}.{$domain}/kake/passport",
 
     'thrift_ip' => '[SECRET:thrift_ip]',
     'thrift_port' => '[SECRET:thrift_port]',

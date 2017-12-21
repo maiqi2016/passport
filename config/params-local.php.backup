@@ -5,8 +5,8 @@ $domain = DOMAIN;
 
 
 return [
-    'passport_url' => "http://{$secondPassport}.{$domain}",
-    'passport_source' => "http://{$secondSource}.{$domain}/kake/passport",
+    'passport_url' => "//{$secondPassport}.{$domain}",
+    'passport_source' => "//{$secondSource}.{$domain}/kake/passport",
 
     'thrift_ip' => '192.168.0.222',
 ];
