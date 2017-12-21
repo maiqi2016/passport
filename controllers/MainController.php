@@ -33,7 +33,7 @@ class MainController extends Controller
      * @var array 域名白名单
      */
     public static $logout = [
-        'http://www.kakehotels.com/?r=user/logout'
+        '//www.kakehotels.com/?r=user/logout'
     ];
 
     /**
