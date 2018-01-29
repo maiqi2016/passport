@@ -45,7 +45,9 @@ class AuthController extends MainController
         $this->sourceCss = ['auth/login'];
         $this->sourceJs = ['auth/login'];
 
-        return $this->render('login');
+        return $this->render('login', [
+            'extra' => base64_encode(!empty($params['extra']) ? $params['extra'] : null)
+        ]);
     }
 
     /**
