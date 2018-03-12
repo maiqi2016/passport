@@ -1,0 +1,12 @@
+<?php
+$secondPassport = 'passport';
+$secondSource = 'source';
+$domain = DOMAIN;
+
+
+return [
+    'passport_url' => "//{$secondPassport}.{$domain}",
+    'passport_source' => "//{$secondSource}.{$domain}/kake/passport",
+
+    'thrift_ip' => '192.168.0.222',
+];

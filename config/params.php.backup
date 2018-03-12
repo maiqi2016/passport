@@ -1,0 +1,21 @@
+<?php
+$secondPassport = 'passport';
+$secondSource = 'source';
+$domain = DOMAIN;
+
+return [
+    'app_name' => 'Passport',
+
+    'app_title' => '喀客通行',
+    'app_description' => '喀客通行',
+    'app_keywords' => '喀客通行',
+
+    'passport_url' => "//{$secondPassport}.{$domain}",
+    'passport_source' => "//{$secondSource}.{$domain}/kake/passport",
+
+    'thrift_ip' => '[SECRET:thrift_ip]',
+    'thrift_port' => '[SECRET:thrift_port]',
+
+    'service_app_id' => '[SECRET:service_app_id]',
+    'service_app_secret' => '[SECRET:service_app_secret]',
+];

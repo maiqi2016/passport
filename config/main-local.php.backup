@@ -1,0 +1,18 @@
+<?php
+return [
+    'bootstrap' => [],
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => [
+                '127.0.0.1',
+                '::1',
+                '192.168.0.*',
+            ]
+        ],
+    ],
+    'params' => array_merge(
+        require(__DIR__ . '/params.php'),
+        require(__DIR__ . '/params-local.php')
+    )
+];

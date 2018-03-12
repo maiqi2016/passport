@@ -1,0 +1,82 @@
+<?php
+return [
+    'id' => 'passport',
+    'language' => 'zh-CN',
+    'defaultRoute' => 'base',
+    'name' => 'Passport',
+    'basePath' => dirname(__DIR__),
+    'vendorPath' => dirname(__DIR__) . '/vendor',
+    'controllerNamespace' => 'passport\controllers',
+    'bootstrap' => ['log'],
+    'params' => array_merge(
+        require(__DIR__ . '/params-local.php'),
+        require(__DIR__ . '/params.php')
+    ),
+    'components' => [
+        'session' => [
+            // 'class'=>'yii\redis\Session',
+            // 'keyPrefix' => 'sess_passport_',
+            'name' => 'SSO_SESS',
+            'cookieParams' => [
+                'domain' => DOMAIN,
+                'lifetime' => 30 * 86400,
+                'httpOnly' => true,
+                'path' => '/',
+            ],
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => '[SECRET:redis_host]',
+            'password' => '[SECRET:redis_pwd]',
+            'port' => [SECRET:redis_port],
+            'database' => 0,
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@passport/messages',
+                ],
+            ],
+        ],
+        'errorHandler' => [
+            'errorAction' => 'main/error',
+        ],
+        'request' => [
+            'cookieValidationKey' => '[SECRET:cookie]',
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => YII_DEBUG ? [
+                        'trace',
+                        'warning',
+                        'info',
+                        'error'
+                    ] : [
+                        'info',
+                        'error'
+                    ],
+                    'logFile' => '@app/runtime/logs/debug.log',
+                    'logVars' => [],
+                    'maxLogFiles' => 20
+                ]
+            ],
+        ],
+        'user' => [
+            'identityClass' => [],
+        ],
+        'oil' => [
+            'class' => 'passport\components\Oil',
+            'rsa' => [
+                'class' => 'Oil\src\Rsa',
+                'config' => [
+                    'public_key' => Yii::getAlias('@rsa/rsa_public.pem'),
+                    'private_key' => Yii::getAlias('@rsa/rsa_private.pem'),
+                ]
+            ],
+        ],
+    ],
+];
