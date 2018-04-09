@@ -8,5 +8,5 @@ return [
     'passport_url' => "//{$secondPassport}.{$domain}",
     'passport_source' => "//{$secondSource}.{$domain}/kake/passport",
 
-    'thrift_ip' => '192.168.0.222',
+    'thrift_ip' => 'localhost',
 ];
