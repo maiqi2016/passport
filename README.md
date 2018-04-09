@@ -1,13 +1,3 @@
-<<<<<<< Updated upstream
-# Passport
-Common passport for user
-
-## Install step
-* git clone https://github.com/maiqi2016/passport.git
-* cd passport
-* chmod a+x install.sh
-* ./install.sh
-=======
 # 项目
 喀客项目单点登录系统
 
@@ -33,4 +23,3 @@ $ sudo docker-compose up -d     # 并确保已经安装(执行)了 `/web/docker/
 $ mq-composer install --ignore-platform-reqs
 $ mq-bash passport/install.sh
 ```
->>>>>>> Stashed changes
