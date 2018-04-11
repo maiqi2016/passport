@@ -13,7 +13,7 @@ return [
     'passport_url' => "//{$secondPassport}.{$domain}",
     'passport_source' => "//{$secondSource}.{$domain}/kake/passport",
 
-    'thrift_ip' => 'localhost',
+    'thrift_ip' => '172.19.222.65',
     'thrift_port' => '8888',
 
     'service_app_id' => 'kk_0c1afa4b1e9df99',
